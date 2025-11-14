@@ -1,0 +1,42 @@
+# Angular/Node
+node_modules/
+dist/
+.tmp
+/out-tsc
+/bazel-out
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# PWA/Service Worker
+*.ngsw.json
+ngsw-config.json
+
+# Logs
+npm-debug.log
+yarn-error.log
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE/Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Angular specific
+.angular/
+coverage/
+e2e/*.js
+e2e/*.map
+
+# Misc
+temp/
+tmp/

@@ -1,0 +1,18 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const contactRoutes = require('./routes/contactRoutes');
+
+const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
+
+mongoose.connect('mongodb://localhost:27017/contactsdb')
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+app.use('/api/contacts', contactRoutes);
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
