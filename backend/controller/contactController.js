@@ -1,4 +1,4 @@
-const repo = require('../repositories/contactRepository');
+const repo = require('../repository/contactRepository');
 
 exports.getAll = async (req, res) => {
     try {

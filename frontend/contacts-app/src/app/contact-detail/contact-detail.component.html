@@ -1,9 +1,11 @@
 <div class="container" *ngIf="contact || isNew">
 
-  <!-- Header  Edit / Delete (view mode only) -->
+  <!-- Edit delete -->
   <header class="detail-header" *ngIf="!isNew && !editMode">
     <button class="action-btn" (click)="edit()">Edit</button>
     <button class="action-btn delete" (click)="delete()">Delete</button>
+      <button class="add-contact" (click)="back()">back</button>
+
   </header>
 
   <!--  EDIT MODE  -->
@@ -69,24 +71,28 @@
            'Must be a valid http/https URL' }}
       </div>
 
-      <!-- Save button -->
-      <button type="submit" class="save-btn" [disabled]="form.invalid">
-        Save
+<!-- inside the form -->
+    <div class="form-footer">
+    <div class="error" *ngIf="error">{{ error }}</div>
+      <button type="submit" class="save-btn" [disabled]="form.invalid || loading">
+        {{ loading ? 'Saving...' : 'Save' }}
       </button>
+    </div>
     </form>
   </ng-container>
 
   <!--  VIEW MODE  -->
-  <ng-template #viewMode>
-    <div class="avatar-large">
-      <img [src]="contact.picture" alt="Contact" />
-    </div>
-    <p><strong>Name:</strong> {{ contact.name }}</p>
-    <p><strong>Full Address:</strong> {{ contact.address }}</p>
-    <p><strong>Email:</strong> {{ contact.email }}</p>
-    <p><strong>Phone:</strong> {{ contact.phone }}</p>
-    <p><strong>Cell:</strong> {{ contact.cell }}</p>
-    <p><strong>Registration Date:</strong> {{ contact.registered | date:'mediumDate' }}</p>
-    <p><strong>Age:</strong> {{ contact.age }}</p>
-  </ng-template>
+<ng-template #viewMode>
+  <div class="avatar-large">
+    <img [src]="contact?.picture || 'https://via.placeholder.com/100'" alt="Contact" />
+  </div>
+
+  <p><strong>Name:</strong> {{ contact?.name }}</p>
+  <p><strong>Full Address:</strong> {{ contact?.address }}</p>
+  <p><strong>Email:</strong> {{ contact?.email }}</p>
+  <p><strong>Phone:</strong> {{ contact?.phone }}</p>
+  <p><strong>Cell:</strong> {{ contact?.cell || '—' }}</p>
+  <p><strong>Registration Date:</strong> {{ contact?.registered | date:'mediumDate' }}</p>
+  <p><strong>Age:</strong> {{ contact?.age }}</p>
+</ng-template>
 </div>

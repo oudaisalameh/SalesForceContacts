@@ -5,6 +5,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/*  Header  */
 .detail-header {
   display: flex;
   justify-content: flex-end;
@@ -25,7 +26,7 @@
 .action-btn.delete { background: #ff3b30; }
 .action-btn:active { opacity: 0.8; }
 
-
+/*  Form  */
 form { margin-top: 16px; }
 label {
   display: block;
@@ -34,7 +35,7 @@ label {
   font-weight: 600;
   color: #000;
 }
-.req { color: #ff3b30; } 
+.req { color: #ff3b30; }   /* red asterisk */
 
 input {
   width: 100%;
@@ -53,7 +54,7 @@ input:focus { border-color: #007aff; outline: none; }
   margin-top: 4px;
 }
 
-
+/*  Save button  */
 .save-btn {
   margin-top: 24px;
   width: 100%;
@@ -71,6 +72,7 @@ input:focus { border-color: #007aff; outline: none; }
   cursor: not-allowed;
 }
 
+/*  View mode  */
 .avatar-large img {
   width: 100px;
   height: 100px;
@@ -85,7 +87,7 @@ p {
 }
 p strong { margin-right: 6px; }
 
-
+/*  Desktop  */
 @media (min-width: 768px) {
   .container { padding: 20px; }
   input, .save-btn { font-size: 17px; }
