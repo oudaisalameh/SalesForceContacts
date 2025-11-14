@@ -10,7 +10,8 @@
 //downloaded packages i need: npm install express mongoose cors axios body-parser dotenv
 
                             ///     db   ////
-//npm install express sqlite3 cors body-parser axios dotenv  
+//npm install express sqlite3 cors body-parser axios dotenv 
+// later after mongodb i will try the api sqlite 
 
                             ///      frontend   ///
 // in frontend created the new app: ng new contacts-app --routing --style=scss

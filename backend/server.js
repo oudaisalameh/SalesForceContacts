@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/contactsdb')
+mongoose.connect('mongodb://localhost:27017/contactsdb')//mongodb atlas for start to see how if it is working and then i change to sqllite
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
 

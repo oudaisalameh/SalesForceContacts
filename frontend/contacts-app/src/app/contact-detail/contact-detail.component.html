@@ -1,0 +1,92 @@
+<div class="container" *ngIf="contact || isNew">
+
+  <!-- Header  Edit / Delete (view mode only) -->
+  <header class="detail-header" *ngIf="!isNew && !editMode">
+    <button class="action-btn" (click)="edit()">Edit</button>
+    <button class="action-btn delete" (click)="delete()">Delete</button>
+  </header>
+
+  <!--  EDIT MODE  -->
+  <ng-container *ngIf="editMode; else viewMode">
+    <form [formGroup]="form" (ngSubmit)="save()" novalidate>
+
+      <!-- Name -->
+      <label>Name <span class="req">*</span></label>
+      <input formControlName="name" />
+      <div class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+        {{ form.get('name')?.hasError('required') ? 'Name is required' :
+           'Name must be at least 2 characters' }}
+      </div>
+
+      <!-- Address -->
+      <label>Full Address <span class="req">*</span></label>
+      <input formControlName="address" />
+      <div class="error" *ngIf="form.get('address')?.touched && form.get('address')?.hasError('required')">
+        Address is required
+      </div>
+
+      <!-- Email -->
+      <label>Email <span class="req">*</span></label>
+      <input formControlName="email" type="email" />
+      <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+        {{ form.get('email')?.hasError('required') ? 'Email is required' :
+           'Enter a valid email address' }}
+      </div>
+
+      <!-- Phone -->
+      <label>Phone <span class="req">*</span></label>
+      <input formControlName="phone" type="tel" placeholder="e.g. 050-123-4567" />
+      <div class="error" *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
+        {{ form.get('phone')?.hasError('required') ? 'Phone is required' :
+           'Invalid phone (use numbers, spaces, dashes, parentheses)' }}
+      </div>
+
+      <!-- Cell-->
+      <label>Cell</label>
+      <input formControlName="cell" type="tel" />
+
+      <!-- Registration Date -->
+      <label>Registration Date <span class="req">*</span></label>
+      <input formControlName="registered" type="date" />
+      <div class="error" *ngIf="form.get('registered')?.touched && form.get('registered')?.hasError('required')">
+        Date is required
+      </div>
+
+      <!-- Age -->
+      <label>Age <span class="req">*</span></label>
+      <input formControlName="age" type="number" />
+      <div class="error" *ngIf="form.get('age')?.touched && form.get('age')?.invalid">
+        {{ form.get('age')?.hasError('required') ? 'Age is required' :
+           form.get('age')?.hasError('min') ? 'Age must be ≥ 0' :
+           'Age must be ≤ 150' }}
+      </div>
+
+      <!-- Image URL -->
+      <label>Image URL <span class="req">*</span></label>
+      <input formControlName="picture" placeholder="https://..." />
+      <div class="error" *ngIf="form.get('picture')?.touched && form.get('picture')?.invalid">
+        {{ form.get('picture')?.hasError('required') ? 'Image URL is required' :
+           'Must be a valid http/https URL' }}
+      </div>
+
+      <!-- Save button -->
+      <button type="submit" class="save-btn" [disabled]="form.invalid">
+        Save
+      </button>
+    </form>
+  </ng-container>
+
+  <!--  VIEW MODE  -->
+  <ng-template #viewMode>
+    <div class="avatar-large">
+      <img [src]="contact.picture" alt="Contact" />
+    </div>
+    <p><strong>Name:</strong> {{ contact.name }}</p>
+    <p><strong>Full Address:</strong> {{ contact.address }}</p>
+    <p><strong>Email:</strong> {{ contact.email }}</p>
+    <p><strong>Phone:</strong> {{ contact.phone }}</p>
+    <p><strong>Cell:</strong> {{ contact.cell }}</p>
+    <p><strong>Registration Date:</strong> {{ contact.registered | date:'mediumDate' }}</p>
+    <p><strong>Age:</strong> {{ contact.age }}</p>
+  </ng-template>
+</div>
