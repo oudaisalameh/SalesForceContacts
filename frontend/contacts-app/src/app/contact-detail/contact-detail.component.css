@@ -1,94 +1,165 @@
 .container {
-  max-width: 600px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 400px;
   margin: 0 auto;
-  padding: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding: 20px;
+  background: #fff;
 }
 
-/*  Header  */
 .detail-header {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid #d8d8d8;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
 }
-.action-btn {
-  background: #007aff;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-}
-.action-btn.delete { background: #ff3b30; }
-.action-btn:active { opacity: 0.8; }
 
-/*  Form  */
-form { margin-top: 16px; }
-label {
-  display: block;
-  margin-top: 14px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #000;
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #007aff;
 }
-.req { color: #ff3b30; }   /* red asterisk */
+
+.actions button {
+  background: none;
+  border: none;
+  color: #007aff;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.actions .delete {
+  color: #ff3b30;
+}
+
+.profile-header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.company {
+  font-size: 16px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.details {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.icon {
+  font-size: 20px;
+  width: 30px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.detail-item span {
+  font-size: 14px;
+  color: #666;
+  width: 60px;
+}
+
+.detail-item a {
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+  flex: 1;
+}
+
+.additional {
+  padding: 20px 0;
+}
+
+.additional p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #666;
+}
 
 input {
-  width: 100%;
   padding: 10px;
-  margin-top: 4px;
-  border: 1px solid #c7c7cc;
-  border-radius: 8px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   font-size: 16px;
-  box-sizing: border-box;
 }
-input:focus { border-color: #007aff; outline: none; }
+
+.name-input {
+  font-size: 24px;
+  text-align: center;
+  border: none;
+  width: 100%;
+}
+
+.company-input {
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  color: #666;
+  width: 100%;
+}
+
+.req {
+  color: red;
+}
 
 .error {
-  color: #ff3b30;
-  font-size: 13px;
-  margin-top: 4px;
+  color: red;
+  font-size: 12px;
+  margin-bottom: 10px;
 }
 
-/*  Save button  */
+.form-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
 .save-btn {
-  margin-top: 24px;
-  width: 100%;
   background: #007aff;
-  color: #fff;
+  color: white;
+  padding: 10px 20px;
   border: none;
-  border-radius: 10px;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 5px;
   cursor: pointer;
 }
+
 .save-btn:disabled {
-  background: #c7c7cc;
-  cursor: not-allowed;
-}
-
-/*  View mode  */
-.avatar-large img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 20px auto;
-}
-p {
-  font-size: 16px;
-  margin: 8px 0;
-}
-p strong { margin-right: 6px; }
-
-/*  Desktop  */
-@media (min-width: 768px) {
-  .container { padding: 20px; }
-  input, .save-btn { font-size: 17px; }
+  background: #ccc;
 }

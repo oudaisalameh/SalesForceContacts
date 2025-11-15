@@ -1,7 +1,11 @@
 <div class="list-page">
   <header class="top-bar">
+    <span class="title">All Contacts</span>
+    <button class="search-btn">
+      <i class="search-icon"></i> <!-- Assume you add a search icon via CSS or font -->
+    </button>
     <button class="add-contact" (click)="newContact()">+</button>
-        <button
+    <button
       class="action-btn"
       (click)="addRandom()"
       [disabled]="loadingRandom"
@@ -17,18 +21,20 @@
   <!-- Sectioned List -->
   <div class="sections">
     <ng-container *ngFor="let group of grouped">
-      <div class="section-header">{{ group.letter }}</div>
+      <div class="section-header" id="{{ group.letter }}">{{ group.letter }}</div>
       <ul class="contact-list">
         <li *ngFor="let c of group.items" (click)="goToDetail(c._id!)">
           <img [src]="c.picture" class="avatar" alt="avatar" />
           <div class="info">
             <div class="name">{{ c.name }}</div>
-            <div class="sub">{{ c.email }}</div>
+            <div class="sub">{{ c.address }}</div> <!-- Changed to address to match screenshot affiliations -->
           </div>
         </li>
       </ul>
     </ng-container>
   </div>
+
+ 
 
   <p *ngIf="contacts.length === 0" class="empty">No contacts yet. Add some!</p>
 </div>

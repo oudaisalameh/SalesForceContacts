@@ -14,7 +14,7 @@ interface RandomUser {
   dob: { age: number };
   picture: { large: string };
 }
-//https://randomuser.me/api/portraits/men/32.jpg
+
 @Component({
   selector: 'app-contact-list',
   standalone: true,
@@ -27,6 +27,20 @@ export class ContactListComponent implements OnInit {
   grouped: { letter: string; items: Contact[] }[] = [];
   loadingRandom = false;
   randomMessage = '';
+  alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+  private companies: string[] = [
+    'Stanford University',
+    'Hooli Inc.',
+    'UC Berkeley',
+    'Husky Energy',
+    'Pied Piper',
+    'Aviato',
+    'Raviga',
+    'Nucleus',
+    'Endframe',
+    'SeeFood Technologies'
+  ];
 
   constructor(
     private router: Router,
@@ -79,18 +93,19 @@ export class ContactListComponent implements OnInit {
       .get<{ results: RandomUser[] }>('https://randomuser.me/api/?results=10&nat=us,gb,au')
       .subscribe({
         next: (res) => {
-          const promises = res.results.map((user) =>
-            this.contactService.create({
+          const promises = res.results.map((user) => {
+            const randomCompany = this.companies[Math.floor(Math.random() * this.companies.length)];
+            return this.contactService.create({
               name: `${user.name.first} ${user.name.last}`,
-              address: 'AllCloud', 
+              address: randomCompany,
               email: user.email,
               phone: user.phone,
               cell: user.cell,
               registered: new Date(user.registered.date),
               age: user.dob.age,
               picture: user.picture.large,
-            }).toPromise()
-          );
+            }).toPromise();
+          });
 
           Promise.all(promises)
             .then(() => {
@@ -109,5 +124,12 @@ export class ContactListComponent implements OnInit {
           this.randomMessage = 'Failed to fetch random users';
         },
       });
+  }
+
+  scrollToSection(letter: string) {
+    const element = document.getElementById(letter);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }
