@@ -1,7 +1,7 @@
 <div class="list-page">
   <header class="top-bar">
     <button class="search-btn">
-      <i class="search-icon"></i> <!-- Assume you add a search icon via CSS or font -->
+      <i class="search-icon"></i> 
     </button>
     
     <button class="add-contact" (click)="newContact()">+</button>
@@ -27,7 +27,7 @@
           <img [src]="c.picture" class="avatar" alt="avatar" />
           <div class="info">
             <div class="name">{{ c.name }}</div>
-            <div class="sub">{{ c.address }}</div> <!-- Changed to address to match screenshot affiliations -->
+            <div class="sub">{{ c.address }}</div>
           </div>
         </li>
       </ul>

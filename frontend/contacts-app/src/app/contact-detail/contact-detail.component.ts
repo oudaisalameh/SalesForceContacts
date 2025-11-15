@@ -33,7 +33,7 @@ export class ContactDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private contactService: ContactService // inject
+    private contactService: ContactService 
   ) {}
 
   ngOnInit(): void {
