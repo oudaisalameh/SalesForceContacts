@@ -1,20 +1,23 @@
+// repository/contactRepository.js
 const Contact = require('../models/contact');
 
-exports.getAll = async () => await Contact.find();
-
-exports.getById = async (id) => await Contact.findOne({ id });
-
-exports.create = async (data) => {
-    try {
-        const contact = new Contact(data);
-        if (!contact.id) contact.id = require('uuid').v4();
-        return await contact.save();
-    } catch (error) {
-        console.log(error)
-    }
-
+exports.getAll = async () => {
+    return await Contact.find();
 };
 
-exports.update = async (id, data) => await Contact.findOneAndUpdate({ id }, data, { new: true });
+exports.getById = async (id) => {
+    return await Contact.findById(id);
+};
 
-exports.delete = async (id) => await Contact.findOneAndDelete({ id });
+exports.create = async (data) => {
+    const contact = new Contact(data);
+    return await contact.save();
+};
+
+exports.update = async (id, data) => {
+    return await Contact.findByIdAndUpdate(id, data, { new: true });
+};
+
+exports.delete = async (id) => {
+    return await Contact.findByIdAndDelete(id);
+};
