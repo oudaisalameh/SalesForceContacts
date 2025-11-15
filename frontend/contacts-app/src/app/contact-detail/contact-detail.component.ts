@@ -37,14 +37,19 @@ export class ContactDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.loadContact(id);
-    } else {
-      this.isNew = true;
-      this.editMode = true;
-      this.initForm({});
-    }
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      if (id) {
+        this.isNew = false;
+        this.editMode = false;
+        this.loadContact(id);
+      } else {
+        this.isNew = true;
+        this.editMode = true;
+        this.initForm({});
+      }
+    });
+    
   }
 
   private loadContact(id: string) {
@@ -86,6 +91,7 @@ export class ContactDetailComponent implements OnInit {
 
   back() {
     this.router.navigate(['/']);
+
   }
 delete() {
   if (!this.contact?._id || !confirm('Delete this contact?')) return;
@@ -94,6 +100,7 @@ delete() {
     next: () => {
       this.loading = false;
       this.router.navigate(['/']);
+
     },
     error: (err) => {
       this.loading = false;

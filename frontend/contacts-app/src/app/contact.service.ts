@@ -32,7 +32,6 @@ export class ContactService {
   }
 
   create(contact: Contact): Observable<Contact> {
-    // DO NOT send id – backend generates it
     const { _id, ...payload } = contact;
     return this.http.post<Contact>(this.apiUrl, payload);
   }
