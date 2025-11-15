@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Contact {
-  id?: string;
+  _id?: string;
   name: string;
   address: string;
   email: string;
@@ -33,12 +33,12 @@ export class ContactService {
 
   create(contact: Contact): Observable<Contact> {
     // DO NOT send id – backend generates it
-    const { id, ...payload } = contact;
+    const { _id, ...payload } = contact;
     return this.http.post<Contact>(this.apiUrl, payload);
   }
 
   update(id: string, contact: Contact): Observable<Contact> {
-    const { id: _, ...payload } = contact;
+    const { _id: _, ...payload } = contact;
     return this.http.put<Contact>(`${this.apiUrl}/${id}`, payload);
   }
 

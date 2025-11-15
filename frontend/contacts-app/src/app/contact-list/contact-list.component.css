@@ -44,7 +44,15 @@
   top: 0;
   z-index: 1;
 }
-
+.message {
+  text-align: center;
+  padding: 8px;
+  font-size: 14px;
+  color: #007aff;
+  background: #f0f8ff;
+  border-radius: 6px;
+  margin: 8px 12px;
+}
 /*Contact list*/
 .contact-list {
   list-style: none;

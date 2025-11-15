@@ -84,51 +84,51 @@ export class ContactDetailComponent implements OnInit {
     this.editMode = true;
   }
 
-  delete() {
-    if (!this.contact?.id || !confirm('Delete this contact?')) return;
-    this.loading = true;
-    this.contactService.delete(this.contact.id).subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        this.loading = false;
-        this.error = 'Failed to delete contact';
-      },
-    });
-  }
-
   back() {
     this.router.navigate(['/']);
   }
-  save() {
-    if (this.form.invalid || this.loading) return;
+delete() {
+  if (!this.contact?._id || !confirm('Delete this contact?')) return;
+  this.loading = true;
+  this.contactService.delete(this.contact._id).subscribe({  // <-- id is correct now
+    next: () => {
+      this.loading = false;
+      this.router.navigate(['/']);
+    },
+    error: (err) => {
+      this.loading = false;
+      this.error = 'Failed to delete contact';
+    },
+  });
+}
 
-    this.loading = true;
-    this.error = '';
+save() {
+  if (this.form.invalid || this.loading) return;
 
-    const raw = this.form.getRawValue();
-    const payload: Contact = {
-      ...raw,
-      id: this.contact?.id,
-      registered: new Date(raw.registered),
-      age: Number(raw.age),
-    };
+  this.loading = true;
+  this.error = '';
 
-    const request$ = this.isNew
-      ? this.contactService.create(payload)
-      : this.contactService.update(payload.id!, payload);
+  const raw = this.form.getRawValue();
+const payload: Contact = {
+  ...raw,
+  _id: this.contact?._id,  
+//   registered: new Date(raw.registered),
+  age: Number(raw.age),
+};
 
-    request$.subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        this.loading = false;
-        this.error = err.error?.message || 'Failed to save contact';
-      },
-    });
-  }
+const request$ = this.isNew
+  ? this.contactService.create(payload)
+  : this.contactService.update(this.contact!._id || this.contact!._id!, payload);
+
+  request$.subscribe({
+    next: () => {
+      this.loading = false;
+      this.router.navigate(['/']);
+    },
+    error: (err) => {
+      this.loading = false;
+      this.error = err.error?.message || 'Failed to save contact';
+    },
+  });
+}
 }
