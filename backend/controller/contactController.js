@@ -21,6 +21,7 @@ exports.getById = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
+
         const contact = await repo.create(req.body);
         res.status(201).json(contact);
     } catch (err) {

@@ -86,7 +86,17 @@ export class ContactDetailComponent implements OnInit {
 
   delete() {
     if (!this.contact?.id || !confirm('Delete this contact?')) return;
-    this.router.navigate(['/']);
+    this.loading = true;
+    this.contactService.delete(this.contact.id).subscribe({
+      next: () => {
+        this.loading = false;
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.loading = false;
+        this.error = 'Failed to delete contact';
+      },
+    });
   }
 
   back() {

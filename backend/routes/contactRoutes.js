@@ -2,10 +2,10 @@ const express = require('express');
 const controller = require('../controller/contactController');
 const router = express.Router();
 
-router.get('/contacts/', controller.getAll);
-router.get('/contacts/:id', controller.getById);
-router.post('/contacts/', controller.create);
-router.put('/contacts/:id', controller.update);
-router.delete('/contacts/:id', controller.delete);
+router.get('/', controller.getAll);
+router.get('/:id', controller.getById);
+router.post('/', controller.create);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.delete);
 
 module.exports = router;

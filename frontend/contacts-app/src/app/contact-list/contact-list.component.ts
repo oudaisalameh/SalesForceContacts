@@ -27,7 +27,7 @@ export class ContactListComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    //  example static
+    //  example static //   https://randomuser.me/api/portraits/men/32.jpg
     this.contacts = [
       {
         id: '1',

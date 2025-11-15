@@ -9,10 +9,15 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/contactsdb')//mongodb atlas for start to see how if it is working and then i change to sqllite
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+// MongoDB Connection
+const mongoURI = 'mongodb+srv://thedevilstraining:9oX9VIfbwexBWT1y@database.rriwm.mongodb.net/SalesForce2?retryWrites=true&w=majority';
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('✅ MongoDB Atlas Connected'))
+    .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
-app.use('/api/contacts', contactRoutes);
+app.use('/contacts', contactRoutes);
 
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));
