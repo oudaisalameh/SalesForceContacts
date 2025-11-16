@@ -20,7 +20,7 @@
 
                             ///      starting   ///
 
-// now starting to build the mvc architecture and backend ( controller, repo,model, routes, server with sqllite api)
+// now starting to build the mvc architecture and backend ( controller, repo,model, routes, server with mongodb api)
 
 
 // installing indexeddb so we can save the contacts in offline mode with the serviceworker : npm install idb
