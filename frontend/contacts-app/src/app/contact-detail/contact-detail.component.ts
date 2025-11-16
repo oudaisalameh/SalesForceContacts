@@ -138,4 +138,11 @@ const request$ = this.isNew
     },
   });
 }
+// sample quick call (optional)
+callQuick(contact: Contact| null) {
+  if (!contact) return;
+  const number = contact.cell || contact.phone;
+  if (!number) return alert('No number available');
+  window.location.href = 'tel:' + number;
+}
 }

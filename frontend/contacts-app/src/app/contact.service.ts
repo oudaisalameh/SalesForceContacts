@@ -57,7 +57,5 @@ export class ContactService {
         return offlineData;
       })
     );
-        return this.http.get<any[]>('/contacts');
-
   }
 }
