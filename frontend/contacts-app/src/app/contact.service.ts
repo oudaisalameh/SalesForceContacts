@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { IndexedDBService } from './indexeddb.service';
+import { catchError, of, tap } from 'rxjs';
 
 export interface Contact {
   _id?: string;
@@ -21,7 +23,7 @@ export interface Contact {
 export class ContactService {
   private apiUrl = 'http://localhost:3000/contacts';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private idb: IndexedDBService) {}
 
   getAll(): Observable<Contact[]> {
     return this.http.get<Contact[]>(this.apiUrl);
@@ -43,5 +45,19 @@ export class ContactService {
 
   delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+  getContacts() {
+    return this.http.get<any[]>('/contacts').pipe(
+      tap(contacts => {
+        this.idb.saveContacts(contacts);   // Save online data offline
+      }),
+      catchError(async () => {
+        // Offline mode will load from IndexedDB
+        const offlineData = await this.idb.getContacts();
+        return offlineData;
+      })
+    );
+        return this.http.get<any[]>('/contacts');
+
   }
 }
