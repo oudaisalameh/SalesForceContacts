@@ -1,40 +1,40 @@
-<div class="list-page">
-  <header class="top-bar">
-    <button class="search-btn">
-      <i class="search-icon"></i> 
-    </button>
-    
-    <button class="add-contact" (click)="newContact()">+</button>
-    <button
-      class="action-btn"
-      (click)="addRandom()"
-      [disabled]="loadingRandom"
-    >
-      ?
-    </button>
-  </header>
+<header class="top-bar">
+  <button class="search-btn" (click)="toggleSearch()">
+    <i class="search-icon"></i>
+  </button>
 
-  <div class="message" *ngIf="randomMessage">
-    {{ randomMessage }}
-  </div>
+  <button class="add-contact" (click)="newContact()">+</button>
+  <button class="action-btn" (click)="addRandom()" [disabled]="loadingRandom">?</button>
+</header>
 
-  <!-- Sectioned List -->
-  <div class="sections">
-    <ng-container *ngFor="let group of grouped">
-      <div class="section-header" id="{{ group.letter }}">{{ group.letter }}</div>
-      <ul class="contact-list">
-        <li *ngFor="let c of group.items" (click)="goToDetail(c._id!)">
-          <img [src]="c.picture" class="avatar" alt="avatar" />
-          <div class="info">
-            <div class="name">{{ c.name }}</div>
-            <div class="sub">{{ c.address }}</div>
-          </div>
-        </li>
-      </ul>
-    </ng-container>
-  </div>
-
- 
-
-  <p *ngIf="contacts.length === 0" class="empty">No contacts yet. Add some!</p>
+<!-- Search Header -->
+<div class="search-header" *ngIf="searchActive">
+  <input
+    type="text"
+    placeholder="Search contacts..."
+    [(ngModel)]="searchQuery"
+    (input)="applySearch()"
+  />
 </div>
+
+<div class="message" *ngIf="randomMessage">
+  {{ randomMessage }}
+</div>
+
+<!-- Sectioned List -->
+<div class="sections">
+  <ng-container *ngFor="let group of (searchActive ? filteredGrouped : grouped)">
+    <div class="section-header" id="{{ group.letter }}">{{ group.letter }}</div>
+    <ul class="contact-list">
+      <li *ngFor="let c of group.items" (click)="goToDetail(c._id!)">
+        <img [src]="c.picture" class="avatar" alt="avatar" />
+        <div class="info">
+          <div class="name">{{ c.name }}</div>
+          <div class="sub">{{ c.address }}</div>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+</div>
+
+<p *ngIf="contacts.length === 0" class="empty">No contacts yet. Add some!</p>

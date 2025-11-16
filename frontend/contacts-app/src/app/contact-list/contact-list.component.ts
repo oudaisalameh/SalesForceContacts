@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ContactService, Contact } from '../contact.service';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'; // <-- add this
 
 interface RandomUser {
   name: { first: string; last: string };
@@ -19,7 +20,7 @@ interface RandomUser {
 @Component({
   selector: 'app-contact-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.css'],
 })
@@ -28,6 +29,11 @@ export class ContactListComponent implements OnInit {
   grouped: { letter: string; items: Contact[] }[] = [];
   loadingRandom = false;
   randomMessage = '';
+  searchQuery = '';
+  searchActive = false; // <-- new
+
+
+  filteredGrouped: { letter: string; items: Contact[] }[] = [];
 
   constructor(
     private router: Router,
@@ -96,7 +102,6 @@ export class ContactListComponent implements OnInit {
               phone: user.phone,
               cell: user.cell,
               registered: new Date(user.registered.date),
-              age: user.dob.age,
               picture: user.picture.large,
             }).toPromise()
           );
@@ -105,7 +110,7 @@ export class ContactListComponent implements OnInit {
             .then(() => {
               this.loadingRandom = false;
               this.randomMessage = '10 random contacts added!';
-              this.loadContacts(); // refresh the contact list
+              this.loadContacts(); 
               setTimeout(() => (this.randomMessage = ''), 10000);
             })
             .catch(() => {
@@ -119,4 +124,43 @@ export class ContactListComponent implements OnInit {
         },
       });
   }
+
+  toggleSearch() {
+    this.searchActive = !this.searchActive;
+    if (!this.searchActive) {
+      this.clearSearch();
+    } else {
+      setTimeout(() => {
+        const input = document.querySelector<HTMLInputElement>('.search-header input');
+        input?.focus();
+      });
+    }
+  }
+
+  applySearch() {
+    const query = this.searchQuery.trim().toLowerCase();
+    if (!query) {
+      this.filteredGrouped = this.grouped;
+      return;
+    }
+
+    this.filteredGrouped = this.grouped
+      .map((group) => ({
+        letter: group.letter,
+        items: group.items.filter(
+          (c) =>
+            c.name.toLowerCase().includes(query) ||
+            c.email.toLowerCase().includes(query) ||
+            c.phone.toLowerCase().includes(query)
+        ),
+      }))
+      .filter((group) => group.items.length > 0);
+  }
+
+  clearSearch() {
+    this.searchQuery = '';
+    this.applySearch();
+  }
+
+
 }

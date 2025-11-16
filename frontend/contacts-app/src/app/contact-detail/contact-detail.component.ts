@@ -82,7 +82,6 @@ private loadContact(id: string) {
           : new Date().toISOString().split('T')[0],
         Validators.required
       ),
-      age: new FormControl(data.age || '', [Validators.required, Validators.min(0), Validators.max(150)]),
       picture: new FormControl(data.picture || '', [Validators.required, Validators.pattern(/^https?:\/\/.+/)]),
     });
   }
@@ -121,15 +120,14 @@ save() {
 const payload: Contact = {
   ...raw,
   _id: this.contact?._id,  
-//   registered: new Date(raw.registered),
-  age: Number(raw.age),
+  registered: new Date(raw.registered),
 };
 
-const request$ = this.isNew
+const request = this.isNew
   ? this.contactService.create(payload)
   : this.contactService.update(this.contact!._id || this.contact!._id!, payload);
 
-  request$.subscribe({
+  request.subscribe({
     next: () => {
       this.loading = false;
       this.router.navigate(['/']);
@@ -140,7 +138,6 @@ const request$ = this.isNew
     },
   });
 }
-// sample quick call (optional)
 callQuick(contact: Contact| null) {
   if (!contact) return;
   const number = contact.cell || contact.phone;

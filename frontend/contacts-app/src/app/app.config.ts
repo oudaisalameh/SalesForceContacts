@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
 
-    // forces Angular to recreate components on every navigation
+    // forces Angular to recreate components on every navigation to fix white page
     provideRouter(
       routes,
       withRouterConfig({

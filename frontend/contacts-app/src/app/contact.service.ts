@@ -12,7 +12,6 @@ export interface Contact {
   phone: string;
   cell?: string;
   registered: Date | string;
-  age: number;
   picture: string;
 }
 

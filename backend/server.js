@@ -15,8 +15,8 @@ mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
-    .then(() => console.log('✅ MongoDB Atlas Connected'))
-    .catch(err => console.error('❌ MongoDB Connection Error:', err));
+    .then(() => console.log('MongoDB Atlas Connected'))
+    .catch(err => console.error('MongoDB Connection Error:', err));
 
 app.use('/contacts', contactRoutes);
 

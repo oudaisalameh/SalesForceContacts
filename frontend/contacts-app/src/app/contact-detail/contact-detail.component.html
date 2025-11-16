@@ -5,20 +5,23 @@
     <div *ngIf="!loading && (contact || isNew)">
 
   <!-- Top Bar for Actions -->
-  <header class="detail-header" *ngIf="!isNew && !editMode">
-    <button class="back-btn" (click)="back()">&lt;</button>
-    <div class="actions">
-      <button class="action-btn" (click)="edit()">Edit</button>
-      <button class="action-btn delete" (click)="delete()">Delete</button>
-    </div>
-  </header>
+<header class="detail-header" *ngIf="!isNew && !editMode">
+  <button class="back-btn" (click)="back()">&lt; </button>
+  <div class="actions">
+    <button class="action-btn edit" (click)="edit()">Edit</button>
+    <button class="action-btn delete" (click)="delete()">Delete</button>
+  </div>
+</header>
+
 
   <!-- EDIT MODE -->
   <ng-container *ngIf="editMode; else viewMode">
     <form [formGroup]="form" (ngSubmit)="save()" novalidate>
       <!-- Profile Header in Edit -->
+         <button class="back-btn" (click)="back()">&lt; </button>
+
       <div class="profile-header">
-        <img [src]="form.get('picture')?.value || 'https://via.placeholder.com/100'" class="profile-pic" alt="Profile">
+        <img [src]="form.get('picture')?.value" class="profile-pic" alt="Profile">
         <input formControlName="name" class="name-input" placeholder="Name" />
         <div class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
           {{ form.get('name')?.hasError('required') ? 'Name is required' : 'Name must be at least 2 characters' }}
@@ -61,11 +64,6 @@
           Date is required
         </div>
 
-        <label>Age</label>
-        <input formControlName="age" type="number" />
-        <div class="error" *ngIf="form.get('age')?.touched && form.get('age')?.invalid">
-          {{ form.get('age')?.hasError('min') ? 'Age must be ≥ 0' : 'Age must be ≤ 150' }}
-        </div>
 
         <label>Image URL <span class="req">*</span></label>
         <input formControlName="picture" placeholder="https://..." />
@@ -87,7 +85,7 @@
   <!-- VIEW MODE -->
   <ng-template #viewMode>
     <div class="profile-header">
-      <img [src]="contact?.picture || 'https://via.placeholder.com/100'" class="profile-pic" alt="Profile">
+      <img [src]="contact?.picture " class="profile-pic" alt="Profile">
       <h2>{{ contact?.name }}</h2>
       <p class="company">{{ contact?.address }}</p>
     </div>
@@ -111,7 +109,6 @@
 
     <div class="additional">
       <p><strong>Registered:</strong> {{ contact?.registered | date:'mediumDate' }}</p>
-      <p><strong>Age:</strong> {{ contact?.age || '—' }}</p>
     </div>
   </ng-template>
   </div>

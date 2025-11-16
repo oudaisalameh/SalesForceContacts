@@ -8,7 +8,6 @@ const contactSchema = new mongoose.Schema({
     phone: { type: String, required: true },
     cell: { type: String },
     registered: { type: Date, required: true },
-    age: { type: Number, required: false, min: 0, max: 150 },
     picture: { type: String, required: false, match: /^https?:\/\// },
 });
 
