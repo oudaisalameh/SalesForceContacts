@@ -1,4 +1,8 @@
-<div class="container" *ngIf="contact || isNew">
+<div class="container" >
+  <div *ngIf="loading" class="loading">
+    Loading…
+  </div>
+    <div *ngIf="!loading && (contact || isNew)">
 
   <!-- Top Bar for Actions -->
   <header class="detail-header" *ngIf="!isNew && !editMode">
@@ -110,4 +114,5 @@
       <p><strong>Age:</strong> {{ contact?.age || '—' }}</p>
     </div>
   </ng-template>
+  </div>
 </div>

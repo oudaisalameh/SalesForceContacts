@@ -34,9 +34,8 @@ export class IndexedDBService {
   }
 
   async getContacts() {
-    if (!this.dbPromise) return []; // SSR safe
-
+    if (!this.dbPromise) return []; 
     const db = await this.dbPromise;
-    return db.getContacts('contacts');
-  }
+    return db.getAll('contacts');
+}
 }

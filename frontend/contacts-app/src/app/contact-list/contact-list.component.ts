@@ -1,6 +1,7 @@
 // src/app/contact-list/contact-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ContactService, Contact } from '../contact.service';
 import { HttpClient } from '@angular/common/http';
@@ -36,8 +37,16 @@ export class ContactListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadContacts();
-  }
-
+      // Reload every time navigation returns to this page
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe((e: NavigationEnd) => {
+        if (e.urlAfterRedirects === '/' || e.url === '/') {
+          this.loadContacts();
+        }
+      });
+    }
+  
   private loadContacts() {
     this.contactService.getAll().subscribe({
       next: (data) => {
